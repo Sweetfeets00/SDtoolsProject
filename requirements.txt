@@ -1,7 +1,5 @@
-Requirements
-
-pandas==2.0.3
-scipy==1.11.1
-streamlit==1.25.0
+pandas==2.2.2
+scipy==1.13.1
+streamlit==1.32.0
 altair==5.0.1
-plotly==5.15.0
+plotly==5.22.0

@@ -5,7 +5,7 @@ import altair as alt
 import plotly.express as px
 import seaborn as sns
 
-data = pd.read_csv('/Users/deshawncouch/SDtoolsProject/vehicles_us.csv')
+data = pd.read_csv('./vehicles_us.csv')
 
 data.info()
 

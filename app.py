@@ -13,13 +13,12 @@ data.info()
 data.duplicated().sum()
 
 data['is_4wd']= data['is_4wd'].fillna(0)
-data['is_4wd'] = data['is_4wd'].astype('bool')   
+data['is_4wd'] = data['is_4wd'].astype('bool') 
 data['manufacturer']=data['model'].str.split().str[0]
 data['paint_color']=data['paint_color'].fillna('unknown')
 data['model_year'] = data['model_year'].fillna(data.groupby(['model'])['model_year'].transform('median')) 
 data['odometer'] = data['odometer'].fillna(data.groupby(['model_year'])['odometer'].transform('median')) 
 data['cylinders'] = data['cylinders'].fillna(data.groupby(['model'])['cylinders'].transform('median'))
-data.sample(10)
 
 ### The goal here is to see how long are cars listed before they are sold
 
@@ -28,10 +27,10 @@ data['days_listed'].describe()
 ### It looks like most vehicles are sold around roughly 40 days!To sell cars faster the client should look to adjusting prices after the 45 day mark if vehicles have not sold.
 
 # histogram of days listed
-data['days_listed'].hist(bins = [5, 10, 40, 100, 150, 200])
-plt.xlabel('days listed')
-plt.ylabel('count of vehicles')
-plt.title('Days listed before being sold')
+g = sns.FacetGrid(data, col="condition", col_wrap=3, sharex=True, sharey=True)
+g.map(plt.hist, "days_listed", bins=[20, 40, 60, 80, 100, 120, 140, 160, 180, 200], alpha=0.7)
+g.set_axis_labels("Days Listed", "Frequency")
+g.fig.suptitle("Days Listed by Vehicle Condition", y=1.02)
 plt.show()
 
 # Group by 'category' and create histograms for 'value'

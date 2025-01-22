@@ -21,64 +21,6 @@ data['odometer'] = data['odometer'].fillna(data.groupby(['model_year'])['odomete
 data['cylinders'] = data['cylinders'].fillna(data.groupby(['model'])['cylinders'].transform('median'))
 data.sample(10)
 
-# Vehicle listing analysis
-
-st.title("Vehicle Listing Analysis")
-st.sidebar.header("Filter by Vehicle Type")
-
-# Selectbox to choose vehicle type
-types = data['type'].unique()
-selected_type = st.sidebar.selectbox("Select Vehicle type", types)
-
-# Filter data based on vehicle type
-filtered_data = data[data['type'] == selected_type]
-
-# Display filtered data
-st.write(f"Showing data for {selected_type}")
-st.write(filtered_data)
-
-
-# histogram for Price
-st.subheader("Histogram: Price")
-fig, ax = plt.subplots()
-sns.histplot(filtered_data['price'], bins=10, kde=True, ax=ax)
-ax.set_title("Distribution of Price")
-ax.set_xlabel("Price ($)")
-ax.set_ylabel("Frequency")
-st.pyplot(fig)
-
-
-# Correlation between condition and Days listed 
-
-st.title("Correlation Analysis")
-st.sidebar.header("Filter by Manufacturer")
-
-# Selectbox to choose vehicle manufacturer
-manufacturers = data['manufacturer'].unique()
-selected_manufacturer = st.sidebar.selectbox("Select Manufacturer", manufacturers,key="manufacturer_selectbox")
-
-# Filter data based on manufacturer
-filtered_data = data[data['manufacturer'] == selected_manufacturer]
-
-# filtered data
-st.write(f"Showing data for {selected_manufacturer}")
-st.write(filtered_data)
-
-# Scatterplot: Condition vs. Days Listed
-st.subheader("Scatterplot: Condition vs. Days Listed")
-
-# scatterplot seaborn
-fig, ax = plt.subplots(figsize=(8, 6))
-sns.scatterplot(data=filtered_data, x='days_listed', y='condition', hue='condition', style='condition', s=100, ax=ax)
-
-# titles and labels
-ax.set_title("Scatterplot: Condition vs. Days Listed")
-ax.set_xlabel("Days Listed")
-ax.set_ylabel("Condition")
-
-# Show the plot in Streamlit
-st.pyplot(fig)
-
 ### The goal here is to see how long are cars listed before they are sold
 
 data['days_listed'].describe()
@@ -97,3 +39,20 @@ data.groupby('condition')['days_listed'].hist(bins=[20,40,60,80,100,120,140,160,
 plt.show()
 
 ### It also appears that there is a steep decline in excellent condition vehicles as time passes. 
+
+fig = px.scatter(
+    data,
+    x='price',
+    y='days_listed',
+    color='condition',
+    size='price',  # Size the markers by price
+    hover_data=['condition'],
+    title='Scatterplot: Price vs Days Listed by Condition'
+)
+fig.update_layout(
+    xaxis_title='Price ($)',
+    yaxis_title='Days Listed'
+)
+fig.show()
+
+## Based on the above it also appears that cheaper vehicles sell faster and more expensive vehicles still sell in about 40 days regardless of condiiton

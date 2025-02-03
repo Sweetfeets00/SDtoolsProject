@@ -5,17 +5,8 @@ import altair as alt
 import plotly.express as px
 import seaborn as sns
 
-data = pd.read_csv('./vehicles_us.csv')
+datap = pd.read_csv('./datap.csv')
 
-
-
-data['is_4wd']= data['is_4wd'].fillna(0)
-data['is_4wd'] = data['is_4wd'].astype('bool') 
-data['manufacturer']=data['model'].str.split().str[0]
-data['paint_color']=data['paint_color'].fillna('unknown')
-data['model_year'] = data['model_year'].fillna(data.groupby(['model'])['model_year'].transform('median')) 
-data['odometer'] = data['odometer'].fillna(data.groupby(['model_year'])['odometer'].transform('median')) 
-data['cylinders'] = data['cylinders'].fillna(data.groupby(['model'])['cylinders'].transform('median'))
 
 ### The goal here is to see how long are cars listed before they are sold
 
@@ -30,7 +21,7 @@ g.fig.suptitle("Days Listed by Vehicle Condition", y=1.02)
 plt.show()
 
 # Group by 'category' and create histograms for 'value'
-data.groupby('condition')['days_listed'].hist(bins=[20,40,60,80,100,120,140,160,180,200],alpha=0.7, legend=True)
+datap.groupby('condition')['days_listed'].hist(bins=[20,40,60,80,100,120,140,160,180,200],alpha=0.7, legend=True)
 plt.show()
 
 ### It also appears that there is a steep decline in excellent condition vehicles as time passes. 

@@ -15,9 +15,15 @@ datap = pd.read_csv('./datap.csv')
 
 # histogram of days listed
 g = sns.FacetGrid(data, col="condition", col_wrap=3, sharex=True, sharey=True)
+
+# Map histogram to the FacetGrid
 g.map(plt.hist, "days_listed", bins=[20, 40, 60, 80, 100, 120, 140, 160, 180, 200], alpha=0.7)
+
+# Set labels and title
 g.set_axis_labels("Days Listed", "Frequency")
 g.fig.suptitle("Days Listed by Vehicle Condition", y=1.02)
+
+# Show the plot
 plt.show()
 
 # Group by 'category' and create histograms for 'value'

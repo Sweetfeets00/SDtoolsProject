@@ -46,4 +46,4 @@ fig.update_layout(
 )
 fig.show()
 
-## Based on the above it also appears that cheaper vehicles sell faster and more expensive vehicles still sell in about 40 days regardless of condiiton
+## Based on the above it also appears that cheaper vehicles sell faster and more expensive vehicles still sell in about 40 days regardless of condition

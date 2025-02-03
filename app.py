@@ -7,9 +7,7 @@ import seaborn as sns
 
 data = pd.read_csv('./vehicles_us.csv')
 
-data.info()
 
-data.duplicated().sum()
 
 data['is_4wd']= data['is_4wd'].fillna(0)
 data['is_4wd'] = data['is_4wd'].astype('bool') 
@@ -21,7 +19,6 @@ data['cylinders'] = data['cylinders'].fillna(data.groupby(['model'])['cylinders'
 
 ### The goal here is to see how long are cars listed before they are sold
 
-data['days_listed'].describe()
 
 ### It looks like most vehicles are sold around roughly 40 days!To sell cars faster the client should look to adjusting prices after the 45 day mark if vehicles have not sold.
 

@@ -14,7 +14,7 @@ datap = pd.read_csv('./datap.csv')
 ### It looks like most vehicles are sold around roughly 40 days!To sell cars faster the client should look to adjusting prices after the 45 day mark if vehicles have not sold.
 
 # histogram of days listed
-g = sns.FacetGrid(data, col="condition", col_wrap=3, sharex=True, sharey=True)
+g = sns.FacetGrid(datap, col="condition", col_wrap=3, sharex=True, sharey=True)
 
 # Map histogram to the FacetGrid
 g.map(plt.hist, "days_listed", bins=[20, 40, 60, 80, 100, 120, 140, 160, 180, 200], alpha=0.7)

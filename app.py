@@ -32,7 +32,7 @@ plt.show()
 
 ### It also appears that there is a steep decline in excellent condition vehicles as time passes. 
 
-fig = px.scatter(
+fig = px.scatter(datap,
     x='price',
     y='days_listed',
     color='condition',

@@ -20,8 +20,8 @@ selected_manufacturer = st.sidebar.selectbox("Select Manufacturer", manufacturer
 filtered_data = datap[datap['manufacturer'] == selected_manufacturer]
 
 # Display filtered data
-st.write(f"Showing data for {selected_manufacturer}")
-st.write(filtered_data)
+# st.write(f"Showing data for {selected_manufacturer}")
+# st.write(filtered_data)
 
 # histogram for Days Listed
 st.subheader("Histogram: Days Listed")
@@ -61,8 +61,8 @@ selected_manufacturer = st.sidebar.selectbox("Select Manufacturer", manufacturer
 filtered_data = datap[datap['manufacturer'] == selected_manufacturer]
 
 # filtered data
-st.write(f"Showing data for {selected_manufacturer}")
-st.write(filtered_data)
+# st.write(f"Showing data for {selected_manufacturer}")
+# st.write(filtered_data)
 
 # Scatterplot: Condition vs. Days Listed
 st.subheader("Scatterplot: Condition vs. Days Listed")

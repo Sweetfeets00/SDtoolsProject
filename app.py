@@ -27,10 +27,11 @@ else:
 if selected_manufacturers:
     filtered_data = datap[datap['manufacturer'].isin(selected_manufacturers)]
 else:
-    filtered_data = datap # Show all data if no manufacturer is selected
+    filtered_data = datap# Show all data if no manufacturer is selected
 
 # Display the filtered data
-st.write(filtered_data)
+st.write(filtered_data.astype(str))
+
 
 
 # histogram for Days Listed

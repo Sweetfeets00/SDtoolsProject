@@ -12,18 +12,25 @@ datap = pd.read_csv('./datap.csv')
 st.title("Vehicle Listing Analysis")
 st.sidebar.header("Filter by Manufacturer")
 
-# Selectbox to choose vehicle manufacturer
-manufacturers = datap['manufacturer'].unique()
-selected_manufacturer = st.sidebar.selectbox("Select Manufacturer", manufacturers)
-selected_manufacturers = [mfr for mfr in manufacturers if st.sidebar.checkbox(mfr, value=False)]
+manufacturers = sorted(datap['manufacturer'].dropna().unique())
 
-# Apply filtering if at least one checkbox is selected
+# Create a "Select All" checkbox
+select_all = st.sidebar.checkbox("Select All Manufacturers", value=True)
+
+# Create checkboxes for each manufacturer
+if select_all:
+    selected_manufacturers = manufacturers  
+else:
+    selected_manufacturers = [mfr for mfr in manufacturers if st.sidebar.checkbox(mfr, value=False)]
+
+
 if selected_manufacturers:
     filtered_data = datap[datap['manufacturer'].isin(selected_manufacturers)]
 else:
     filtered_data = datap  # Show all data if no filter is applied
 
-st.write(filtered_data)  # Display the filtered data (modify as needed)
+# Display the filtered data
+st.write(filtered_data)
 
 # Display filtered data
 # st.write(f"Showing data for {selected_manufacturer}")

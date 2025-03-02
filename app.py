@@ -21,20 +21,17 @@ select_all = st.sidebar.checkbox("Select All Manufacturers", value=True)
 if select_all:
     selected_manufacturers = manufacturers  
 else:
-    selected_manufacturers = [mfr for mfr in manufacturers if st.sidebar.checkbox(mfr, value=False)]
+    selected_manufacturers = [manufacturer for manufacturer in manufacturers if st.sidebar.checkbox(manufacturer, value=False)]
 
 
 if selected_manufacturers:
     filtered_data = datap[datap['manufacturer'].isin(selected_manufacturers)]
 else:
-    filtered_data = datap  # Show all data if no filter is applied
+    filtered_data = datap # Show all data if no manufacturer is selected
 
 # Display the filtered data
 st.write(filtered_data)
 
-# Display filtered data
-# st.write(f"Showing data for {selected_manufacturer}")
-# st.write(filtered_data)
 
 # histogram for Days Listed
 st.subheader("Histogram: Days Listed")

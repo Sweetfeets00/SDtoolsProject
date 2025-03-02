@@ -15,9 +15,15 @@ st.sidebar.header("Filter by Manufacturer")
 # Selectbox to choose vehicle manufacturer
 manufacturers = datap['manufacturer'].unique()
 selected_manufacturer = st.sidebar.selectbox("Select Manufacturer", manufacturers)
+selected_manufacturers = [mfr for mfr in manufacturers if st.sidebar.checkbox(mfr, value=False)]
 
-# Filter data based on manufacturer
-filtered_data = datap[datap['manufacturer'] == selected_manufacturer]
+# Apply filtering if at least one checkbox is selected
+if selected_manufacturers:
+    filtered_data = datap[datap['manufacturer'].isin(selected_manufacturers)]
+else:
+    filtered_data = datap  # Show all data if no filter is applied
+
+st.write(filtered_data)  # Display the filtered data (modify as needed)
 
 # Display filtered data
 # st.write(f"Showing data for {selected_manufacturer}")
@@ -25,12 +31,17 @@ filtered_data = datap[datap['manufacturer'] == selected_manufacturer]
 
 # histogram for Days Listed
 st.subheader("Histogram: Days Listed")
-fig, ax = plt.subplots()
-sns.histplot(filtered_data['days_listed'], bins=10, kde=True, ax=ax)
-ax.set_title("Distribution of Days Listed")
-ax.set_xlabel("Days Listed")
-ax.set_ylabel("Frequency")
-st.pyplot(fig)
+
+fig = px.histogram(filtered_data, x='days_listed', nbins=10, marginal="rug", opacity=0.75)
+
+fig.update_layout(
+    title="Distribution of Days Listed",
+    xaxis_title="Days Listed",
+    yaxis_title="Frequency",
+    bargap=0.05
+)
+
+st.plotly_chart(fig)
 
 # histogram for Price
 st.subheader("Histogram: Price")
@@ -43,10 +54,12 @@ st.pyplot(fig)
 
 # histogram for Condition
 st.subheader("Histogram: Condition")
-fig, ax = plt.subplots()
-sns.countplot(x='condition', data=filtered_data, ax=ax)
-ax.set_title("Condition Distribution")
-st.pyplot(fig)
+
+
+fig = px.bar(filtered_data, x='condition', title="Condition Distribution")
+
+
+st.plotly_chart(fig)
 
 # Correlation between condition and Days listed 
 
@@ -57,12 +70,7 @@ st.sidebar.header("Filter by Manufacturer")
 manufacturers = datap['manufacturer'].unique()
 selected_manufacturer = st.sidebar.selectbox("Select Manufacturer", manufacturers,key="manufacturer_selectbox")
 
-# Filter data based on manufacturer
-filtered_data = datap[datap['manufacturer'] == selected_manufacturer]
 
-# filtered data
-# st.write(f"Showing data for {selected_manufacturer}")
-# st.write(filtered_data)
 
 # Scatterplot: Condition vs. Days Listed
 st.subheader("Scatterplot: Condition vs. Days Listed")

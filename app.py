@@ -6,7 +6,7 @@ import plotly.express as px
 import seaborn as sns
 
 datap = pd.read_csv('./datap.csv')
-
+datap['price']=pd.to_numeric(datap['price'], errors='coerce')
 # Vehicle listing analysis
 
 st.title("Vehicle Listing Analysis")
@@ -30,7 +30,7 @@ else:
     filtered_data = datap# Show all data if no manufacturer is selected
 
 # Display the filtered data
-st.write(filtered_data.astype(str))
+st.write(filtered_data)
 
 
 
@@ -65,17 +65,6 @@ fig = px.bar(filtered_data, x='condition', title="Condition Distribution")
 
 
 st.plotly_chart(fig)
-
-# Correlation between condition and Days listed 
-
-st.title("Correlation Analysis")
-st.sidebar.header("Filter by Manufacturer")
-
-# Selectbox to choose vehicle manufacturer
-manufacturers = datap['manufacturer'].unique()
-selected_manufacturer = st.sidebar.selectbox("Select Manufacturer", manufacturers,key="manufacturer_selectbox")
-
-
 
 # Scatterplot: Condition vs. Days Listed
 st.subheader("Scatterplot: Condition vs. Days Listed")
